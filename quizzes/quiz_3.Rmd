@@ -1,0 +1,106 @@
+---
+jupyter:
+  jupytext:
+    formats: ipynb,R:percent,Rmd
+    text_representation:
+      extension: .Rmd
+      format_name: rmarkdown
+      format_version: '1.2'
+      jupytext_version: 1.8.1
+  kernelspec:
+    display_name: R
+    language: R
+    name: ir
+---
+
+# R Programming: Quiz 3
+
+## Imports
+
+```{r}
+suppressPackageStartupMessages(library(datasets))
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(R.utils))
+```
+
+## `iris` Dataset
+
+```{r}
+data(iris)
+head(iris)
+```
+
+## Question 1
+
+```{r}
+# Solution using base R:
+iris_virginica <- iris[iris[["Species"]] == "virginica", 1:4]
+mean_sepal_length <- apply(iris_virginica, 2, mean)[["Sepal.Length"]]
+R.utils::printf("Mean of Sepal.Length = %.3f\n", mean_sepal_length)
+R.utils::printf("Rounded Mean of Sepal.Length = %d", round(mean_sepal_length))
+```
+
+```{r}
+# Solution using the `tidyverse` library:
+iris_virginica <- iris %>%
+    dplyr::filter(Species == "virginica") %>%
+    dplyr::select(!c(Species))
+mean_sepal_length <- dplyr::summarise(
+    iris_virginica,
+    mean = mean(Sepal.Length)
+)[[1, 1]]
+R.utils::printf("Mean of Sepal.Length = %.3f\n", mean_sepal_length)
+R.utils::printf("Rounded Mean of Sepal.Length = %d", round(mean_sepal_length))
+```
+
+## Question 2
+
+```{r}
+# Correct answer:
+apply(iris[, 1:4], 2, mean)
+```
+
+```{r}
+# Get the same result using the `tidyverse` library:
+iris %>%
+    dplyr::select(!c(Species)) %>%
+    dplyr::summarise(
+        Sepal.Length = mean(Sepal.Length),
+        Sepal.Width = mean(Sepal.Width),
+        Petal.Length = mean(Petal.Length),
+        Petal.Width = mean(Petal.Width)
+    )
+```
+
+## `mtcars` Dataset
+
+```{r}
+data(mtcars)
+head(mtcars)
+```
+
+## Question 3
+
+```{r}
+# Solution using the `tapply` function:
+tapply(mtcars$mpg, mtcars$cyl, mean)
+```
+
+```{r}
+# Solution using the `with` and `tapply` functions:
+with(mtcars, tapply(mpg, cyl, mean))
+```
+
+```{r}
+# Solution using the `sapply` and `split` functions:
+sapply(split(mtcars$mpg, mtcars$cyl), mean)
+```
+
+## Question 4
+
+```{r}
+avg_hp <- tapply(mtcars$hp, mtcars$cyl, mean)
+abs_diff <- abs(avg_hp[["4"]] - avg_hp[["8"]])
+R.utils::printf("Absolute Difference = %f\n", abs_diff)
+R.utils::printf("Rounded Absolute Difference = %d", round(abs_diff))
+```
