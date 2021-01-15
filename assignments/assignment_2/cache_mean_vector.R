@@ -1,46 +1,46 @@
 # Example: Caching the Mean of a Vector.
 
-# Function for making a new vector object:
-make_vector <- function(x = numeric()) {
+# Function for creating a vector object that can cache its mean:
+makeVector <- function(x = numeric()) {
 
-  # Initialize the mean of the vector:
+  # Initialize the mean:
   m <- NULL
 
-  # Setter function for the vector:
+  # Setter for the vector:
   set <- function(y) {
 
     x <<- y
 
-    # Reinitialize the mean:
+    # Initialize the mean:
     m <<- NULL
 
   }
 
-  # Getter function for the vector:
+  # Getter for the vector:
   get <- function() x
 
-  # Setter function for the mean of the vector:
-  setmean <- function(mean) m <<- mean
+  # Setter for the mean:
+  setMean <- function(mean) m <<- mean
 
-  # Getter function for the mean of the vector:
-  getmean <- function() m
+  # Getter for the mean:
+  getMean <- function() m
 
   # Return the new vector object.
   # Return a list containing the methods associated with this object.
   list(
     set = set,
     get = get,
-    setmean = setmean,
-    getmean = getmean
+    setMean = setMean,
+    getMean = getMean
   )
 
 }
 
-# Function for computing and/or retrieving the mean from the new vector object:
-cachemean <- function(x, ...) {
+# Function for computing and/or retrieving the mean:
+cacheMean <- function(x, ...) {
 
-  # Get the mean of the vector:
-  m <- x$getmean()
+  # Get the mean:
+  m <- x$getMean()
 
   # If the mean isn't NULL, then just return it:
   if (!is.null(m)) {
@@ -51,15 +51,21 @@ cachemean <- function(x, ...) {
   # In this case, the mean is NULL.
 
   # Get the vector:
-  data <- x$get()
+  vec <- x$get()
 
-  # Compute the mean:
-  m <- mean(data, ...)
-
-  # Cache the mean:
-  x$setmean(m)
-
-  # Return the mean:
+  # Compute, cache and return the mean:
+  m <- mean(vec, ...)
+  x$setMean(m)
   m
 
 }
+
+# A few tests:
+
+myVec <- makeVector(c(1:5))
+test <- cacheMean(myVec)
+cacheMean(myVec)
+
+myVec <- makeVector(seq(from = 3, to = 15, by = 3))
+test <- cacheMean(myVec)
+cacheMean(myVec)
