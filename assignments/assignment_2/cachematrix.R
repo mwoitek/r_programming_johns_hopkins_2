@@ -1,9 +1,7 @@
-# ██╗    ██╗ ██████╗ ██╗████████╗███████╗██╗  ██╗
-# ██║    ██║██╔═══██╗██║╚══██╔══╝██╔════╝██║ ██╔╝
-# ██║ █╗ ██║██║   ██║██║   ██║   █████╗  █████╔╝
-# ██║███╗██║██║   ██║██║   ██║   ██╔══╝  ██╔═██╗
-# ╚███╔███╔╝╚██████╔╝██║   ██║   ███████╗██║  ██╗
-#  ╚══╝╚══╝  ╚═════╝ ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝
+# Implementation of a matrix object that can cache its inverse matrix. This
+# implementation consists of two functions. The first function is for making
+# this new object, and the second one computes and/or retrieves from the object
+# the corresponding inverse matrix.
 
 # Function for creating a matrix object that can cache its inverse:
 makeCacheMatrix <- function(X = matrix()) {
