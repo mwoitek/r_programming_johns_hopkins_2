@@ -1,0 +1,57 @@
+---
+title: "Programming Assignment 3: Quiz"
+author: "Marcio Woitek"
+output: md_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+## Source the files containing the solution to the assignment
+source("best.R")
+source("rankhospital.R")
+```
+
+# Solution
+
+## Question 1
+
+```{r question_1, message=FALSE}
+best("SC", "heart attack")
+```
+
+## Question 2
+
+```{r question_2}
+best("NY", "pneumonia")
+```
+
+## Question 3
+
+```{r question_3}
+best("AK", "pneumonia")
+```
+
+## Question 4
+
+```{r question_4}
+rankhospital("NC", "heart attack", "worst")
+```
+
+## Question 5
+
+```{r question_5}
+rankhospital("WA", "heart attack", 7)
+```
+
+## Question 6
+
+```{r question_6}
+rankhospital("TX", "pneumonia", 10)
+```
+
+## Question 7
+
+```{r question_7}
+rankhospital("NY", "heart attack", 7)
+```
