@@ -10,6 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Source the files containing the solution to the assignment
 source("best.R")
 source("rankhospital.R")
+source("rankall.R")
 ```
 
 # Solution
@@ -54,4 +55,25 @@ rankhospital("TX", "pneumonia", 10)
 
 ```{r question_7}
 rankhospital("NY", "heart attack", 7)
+```
+
+## Question 8
+
+```{r question_8}
+r <- rankall("heart attack", 4)
+as.character(subset(r, state == "HI")$hospital)
+```
+
+## Question 9
+
+```{r question_9}
+r <- rankall("pneumonia", "worst")
+as.character(subset(r, state == "NJ")$hospital)
+```
+
+## Question 10
+
+```{r question_10}
+r <- rankall("heart failure", 10)
+as.character(subset(r, state == "NV")$hospital)
 ```
